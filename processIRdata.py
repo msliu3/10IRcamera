@@ -25,7 +25,7 @@ Created on Mon Aug  5 21:01:47 2019
 """
 import numpy as np
 from PIL import Image
-f = open('./IRdata.txt', 'r')
+f = open('./fromdata1.0.txt', 'r')
 pic = f.read()
 print(pic)
 frame = []
@@ -55,11 +55,17 @@ print(temp)
 # =============================================================================
 
 data = np.array(temp).reshape(24,32)
+print(data)
+rgbdata = np.array([data,data,data],np.uint8).reshape(3,-1)
+
+rgbdata = rgbdata.T.reshape(24,32,3)
 
 
-image2 = Image.fromarray(data)
+image2 = Image.fromarray(rgbdata)
+image2.show()
 image2 = image2.resize((3200,2400))
 im = Image.open("./testpic.jpg")
 image2.show()
 array = np.array(im)          # array is a numpy array 
 #image2 = Image.fromarray(array)  
+image2.save("./output.jpg")
